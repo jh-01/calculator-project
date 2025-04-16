@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        int firstNumber = -1;
-        int secondNumber = -1;
-        char operator = 0;
+        int firstNumber = 0;
+        int secondNumber = 0;
+        int result = 0;
+        char operator;
         boolean isVaild = true;
         Scanner sc = new Scanner(System.in);
 
@@ -19,8 +20,6 @@ public class App {
             try{
                 firstNumber = Integer.parseInt(fistInput);
                 secondNumber = Integer.parseInt(secondInput);
-                System.out.println("첫 번째 숫자 : " + firstNumber);
-                System.out.println("두 번째 숫자 : " + secondNumber);
                 isVaild = false;
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력해주세요!!");
@@ -35,12 +34,28 @@ public class App {
             System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
             operatorInput = sc.next();
         }
-
         operator = operatorInput.charAt(0);
-        System.out.println("사칙연산 : " + operator);
+        isVaild = true;
+
+        switch (operator) {
+            case '+': result = firstNumber + secondNumber;
+                break;
+            case '-': result = firstNumber - secondNumber;
+                break;
+            case '*': result = firstNumber * secondNumber;
+                break;
+            case '/': if(secondNumber != 0) result = firstNumber / secondNumber;
+            else {
+                System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+                isVaild = false;
+            }
+                break;
+        }
+        if(isVaild) {
+            System.out.println("결과: ");
+            System.out.printf("%d %c %d = %d", firstNumber, operator, secondNumber, result);
+        }
 
         sc.close();
     }
-
-
 }
