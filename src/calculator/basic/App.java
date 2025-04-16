@@ -4,70 +4,81 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        int firstNumber = 0;
-        int secondNumber = 0;
-        int result = 0;
+        int firstNumber;
+        int secondNumber;
+        int result;
         char operator;
-        boolean isValid = true;
         Scanner sc = new Scanner(System.in);
 
-        while (true){
-            while (isValid) {
-                System.out.print("첫 번째 숫자를 입력하세요: ");
-                String fistInput = sc.nextLine();
-                System.out.print("두 번째 숫자를 입력하세요: ");
-                String secondInput = sc.nextLine();
-
-                try {
-                    firstNumber = Integer.parseInt(fistInput);
-                    secondNumber = Integer.parseInt(secondInput);
-                    isValid = false;
-                } catch (NumberFormatException e) {
-                    System.out.println("숫자를 입력해주세요!!");
-                }
+        do {
+            firstNumber = readNumber(sc, "첫 번째 숫자를 입력하세요: ");
+            secondNumber = readNumber(sc, "두 번째 숫자를 입력하세요: ");
+            operator = readOperator(sc, "사칙연산 기호(+, -, *, /)를 입력하세요: ");
+            try {
+                result = doCalculate(firstNumber, secondNumber, operator);
+                System.out.printf("[결과] %d %c %d = %d\n", firstNumber, operator, secondNumber, result);
+            } catch (Exception e) {
+                System.out.println("오류 발생: " + e.getMessage());
             }
+        } while (!askContinue(sc));
+        sc.close();
+    }
+    public static int readNumber(Scanner sc, String message){
+        int inputNumber = -1;
+        boolean isValid = true;
 
-            System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
-            String operatorInput = sc.nextLine();
-
-            while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
-                System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
-                System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
-                operatorInput = sc.next();
-            }
-            operator = operatorInput.charAt(0);
-            isValid = true;
-
-            switch (operator) {
-                case '+':
-                    result = firstNumber + secondNumber;
-                    break;
-                case '-':
-                    result = firstNumber - secondNumber;
-                    break;
-                case '*':
-                    result = firstNumber * secondNumber;
-                    break;
-                case '/':
-                    if (secondNumber != 0) result = firstNumber / secondNumber;
-                    else {
-                        System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
-                        isValid = false;
-                    }
-                    break;
-            }
-            if (isValid) {
-                System.out.println("결과: ");
-                System.out.printf("%d %c %d = %d\n", firstNumber, operator, secondNumber, result);
-            }
-
-            System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
+        while (isValid) {
+            System.out.print(message);
             String input = sc.nextLine();
-            if (input.equals("exit")) {
-                break;
+
+            try {
+                inputNumber = Integer.parseInt(input);
+                isValid = false;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요!!");
             }
         }
+        return inputNumber;
+    }
 
-        sc.close();
+    public static char readOperator(Scanner sc, String message){
+        char operator;
+        System.out.print(message);
+        String operatorInput = sc.nextLine();
+
+        while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
+            System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
+            System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
+            operatorInput = sc.next();
+        }
+        operator = operatorInput.charAt(0);
+        return operator;
+    }
+
+    public static int doCalculate(int firstNumber, int secondNumber, char operator){
+        int result = 0;
+
+        switch (operator) {
+            case '+':
+                result = firstNumber + secondNumber;
+                break;
+            case '-':
+                result = firstNumber - secondNumber;
+                break;
+            case '*':
+                result = firstNumber * secondNumber;
+                break;
+            case '/':
+                if (secondNumber != 0) result = firstNumber / secondNumber;
+                else throw new ArithmeticException("0으로 나눌 수 없습니다.");
+                break;
+        }
+        return result;
+    }
+
+    public static boolean askContinue(Scanner sc){
+        System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
+        String input = sc.nextLine();
+        return input.equals("exit");
     }
 }
