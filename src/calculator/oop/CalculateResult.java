@@ -12,4 +12,8 @@ public class CalculateResult {
         this.operator = operator;
         this.result = result;
     }
+    @Override
+    public String toString() {
+        return String.format("[%d %c %d] = %d", firstNumber, operator, secondNumber, result);
+    }
 }

@@ -30,6 +30,10 @@ public class Calculator {
         calculateResultList.add(calculateResult);
     }
 
+    public void removeFirstCalculateResult(){
+        calculateResultList.remove(0);
+    }
+
     public ArrayList<CalculateResult> getCalculateResultList(){
         return calculateResultList;
     }
