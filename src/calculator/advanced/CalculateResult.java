@@ -1,12 +1,19 @@
 package calculator.advanced;
 
-public class CalculateResult {
-    private final int firstNumber;
-    private final int secondNumber;
+public class CalculateResult<T> {
+    private final T firstNumber;
+    private final T secondNumber;
     private final OperatorType operator;
-    private final int result;
+    private final T result;
 
-    public CalculateResult(int firstNumber, int secondNumber, OperatorType operator, int result) {
+    public CalculateResult(T firstNumber, T secondNumber, OperatorType operator) {
+        this.firstNumber = firstNumber;
+        this.secondNumber = secondNumber;
+        this.operator = operator;
+        this.result = null;
+    }
+
+    public CalculateResult(T firstNumber, T secondNumber, OperatorType operator, T result) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.operator = operator;
@@ -15,6 +22,6 @@ public class CalculateResult {
 
     @Override
     public String toString() {
-        return String.format("[%d %c %d] = %d", firstNumber, operator.getOperator(), secondNumber, result);
+        return String.format("[" + firstNumber + " " + operator.getOperator() + " " + secondNumber + "] = " + result);
     }
 }
