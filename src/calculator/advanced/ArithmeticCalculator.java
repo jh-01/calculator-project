@@ -1,6 +1,7 @@
 package calculator.advanced;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ArithmeticCalculator<T> {
     private final ArrayList<CalculateResult> calculateResultList = new ArrayList<>();
@@ -27,5 +28,17 @@ public class ArithmeticCalculator<T> {
 
     public ArrayList<CalculateResult> getCalculateResultList(){
         return calculateResultList;
+    }
+
+    public void clearCalculateResultList(){
+        calculateResultList.clear();
+    }
+
+    public ArrayList<CalculateResult> getBiggerCase(T num){
+        ArrayList<CalculateResult> biggerCaseList = calculateResultList
+                .stream()
+                .filter(result -> toDouble((T) result.getResult()) > toDouble(num))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return biggerCaseList;
     }
 }
