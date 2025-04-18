@@ -49,7 +49,7 @@ public class App {
         while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
             System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
             System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
-            operatorInput = sc.nextLine().trim();;
+            operatorInput = sc.nextLine().trim();
         }
         operator = operatorInput.charAt(0);
         return operator;
