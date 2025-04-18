@@ -71,3 +71,9 @@ javac -d out src/calculator/advanced/*.java
 
 # 실행
 java -cp out calculator.advanced.App
+
+
+## ✨ 향후 계획 (예정)
+- GUI 기능 추가 (JavaFX 또는 Swing)
+- 로그 파일 저장 기능
+- 단위 테스트 (JUnit) 추가
