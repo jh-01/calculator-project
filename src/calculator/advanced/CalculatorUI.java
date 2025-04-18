@@ -1,11 +1,11 @@
 package calculator.advanced;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CalculatorUI<T extends Number> {
     private final Scanner sc = new Scanner(System.in);
-    private final ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
+    private final CalculatorService<Number> calculatorService = new CalculatorService<>();
 
     public void runCalculator(){
         while (true) {
@@ -13,9 +13,9 @@ public class CalculatorUI<T extends Number> {
             if (menu == -1) break;
             else if(menu == 1) callCalculator();
             else if(menu == 2) printAllCalculateResult();
-            else if(menu == 3) getBiggerCase();
-            else if(menu == 4) arithmeticCalculator.removeFirstCalculateResult();
-            else if(menu == 5) arithmeticCalculator.clearCalculateResultList();
+            else if(menu == 3) getResultsGreaterThan();
+            else if(menu == 4) calculatorService.removeFirstCalculateResult();
+            else if(menu == 5) calculatorService.clearCalculateResultList();
         }
         sc.close();
     }
@@ -60,23 +60,21 @@ public class CalculatorUI<T extends Number> {
         T secondNumber = (T) readNumber("두 번째 숫자를 입력하세요: ");
         operator = readOperator("사칙연산 기호(+, -, *, /)를 입력하세요: ");
         try {
-            double result = arithmeticCalculator.doCalculate(firstNumber, secondNumber, operator);
-            System.out.printf("[결과] %s %c %s = %s\n", firstNumber, operator.getOperator(), secondNumber, result);
-            CalculateResult<T> calculateResult = new CalculateResult<>(firstNumber, secondNumber, operator, result);
-            arithmeticCalculator.saveCalculateResult(calculateResult);
+            CalculateResult<T> calculateResult = (CalculateResult<T>) calculatorService.calculate(firstNumber, secondNumber, operator);
+            System.out.println(calculateResult.toString());
         } catch (Exception e) {
             System.out.println("오류 발생: " + e.getMessage());
         }
     }
 
-    public Number readNumber(String message){
+    public <T extends Number> T readNumber(String message){
         while (true) {
             System.out.print(message);
             String input = sc.nextLine();
 
             try {
-                if(isInteger(input)) return Integer.parseInt(input);
-                else return Double.parseDouble(input);
+                if(isInteger(input)) return (T) Integer.valueOf(input);
+                else return (T) Double.valueOf(input);
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력해주세요!!");
             }
@@ -88,42 +86,36 @@ public class CalculatorUI<T extends Number> {
     }
 
     public OperatorType readOperator(String message){
-        System.out.print(message);
-        OperatorType operatorType = null;
+        OperatorType operatorType;
 
-        while (true) {
+        while(true){
             System.out.print(message);
-            String operatorInput = sc.nextLine();
-
-            if (operatorInput.length() == 1) {
-                try{
-                    operatorType = OperatorType.getOperatorType(operatorInput.charAt(0));
-                    break;
-                } catch (Exception e) {
-                    System.out.println("잘못된 입력입니다.");
-                }
+            String operatorInput = sc.nextLine().trim();
+            if(operatorInput.length() == 1 && "+-%/".contains(operatorInput)){
+                operatorType = OperatorType.getOperatorType(operatorInput.charAt(0));
+                break;
             }
-            else System.out.println("잘못된 입력입니다.");
+            else System.out.println("잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요!!");
         }
         return operatorType;
     }
 
     public void printAllCalculateResult(){
-        ArrayList<CalculateResult> calculateResultList = arithmeticCalculator.getCalculateResultList();
+        List<CalculateResult> calculateResultList = calculatorService.getResults();
         printResultList(calculateResultList);
     }
 
-
-    public void printResultList(ArrayList<CalculateResult> calculateResultList){
-        if(calculateResultList.size() == 0) System.out.println("연산 결과가 비어있습니다!");
-        for(CalculateResult result : calculateResultList){
-            System.out.println(result.toString());
+    public void printResultList(List<CalculateResult> calculateResultList){
+        if(calculateResultList.isEmpty()) System.out.println("연산 결과가 비어있습니다!");
+        else {
+            System.out.println("[연산 결과 목록]");
+            for(CalculateResult result : calculateResultList) System.out.println(result.toString());
         }
     }
 
-    public void getBiggerCase(){
+    public void getResultsGreaterThan(){
         T num = (T) readNumber("기준이 될 숫자를 입력하세요 : ");
-        ArrayList<CalculateResult> calculateResultList = arithmeticCalculator.getBiggerCase(num);
+        List<CalculateResult> calculateResultList = calculatorService.getResultsGreaterThan(num);
         printResultList(calculateResultList);
     }
 }

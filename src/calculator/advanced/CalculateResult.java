@@ -13,13 +13,6 @@ public class CalculateResult<T extends Number> {
         this.result = result;
     }
 
-    public CalculateResult(T firstNumber, T secondNumber, OperatorType operator, double result) {
-        this.firstNumber = firstNumber;
-        this.secondNumber = secondNumber;
-        this.operator = operator;
-        this.result = (T) (Number) result;
-    }
-
     @Override
     public String toString() {
         return String.format("[%.0f %c %.0f] = %.0f",

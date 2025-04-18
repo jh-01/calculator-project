@@ -1,6 +1,6 @@
 package calculator.oop;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -96,7 +96,7 @@ public class App {
     }
 
     public static void printResultList(Calculator calculator){
-        ArrayList<CalculateResult> resultList = calculator.getCalculateResultList();
+        List<CalculateResult> resultList = calculator.getCalculateResultList();
         for(CalculateResult result : resultList){
             System.out.println(result.toString());
         }

@@ -1,6 +1,7 @@
 package calculator.oop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator {
     private final ArrayList<CalculateResult> calculateResultList = new ArrayList<>();
@@ -39,7 +40,7 @@ public class Calculator {
         }
     }
 
-    public ArrayList<CalculateResult> getCalculateResultList(){
+    public List<CalculateResult> getCalculateResultList(){
         return calculateResultList;
     }
 }
