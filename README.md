@@ -53,6 +53,7 @@ calculator/
 ---
 
 ### 주요 클래스 (advanced 패키지 하위)
+
 | 클래스 | 역할 |
 |--------|------|
 App | 프로그램 실행 시작점
@@ -62,6 +63,7 @@ CalculateResult<T> | 연산 기록 객체
 OperatorType | Enum 기반 연산자 관리
 CalculatorService<T> | (선택적) 책임 분리를 위한 서비스 계층
 Calculator<T> | 연산 기능의 기본 계약을 정의하는 인터페이스
+
 ---
 
 ## 🏁 실행 방법
@@ -71,7 +73,9 @@ javac -d out src/calculator/advanced/*.java
 
 # 실행
 java -cp out calculator.advanced.App
+```
 
+---
 
 ## ✨ 향후 계획 (예정)
 - GUI 기능 추가 (JavaFX 또는 Swing)
