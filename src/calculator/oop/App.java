@@ -38,12 +38,12 @@ public class App {
             try {
                 inputNumber = Integer.parseInt(input);
                 if (inputNumber < 1 || inputNumber > 3) {
-                    System.out.println("⚠️ 1, 2, 3 중 하나의 숫자를 입력해주세요.");
+                    System.out.println("1, 2, 3 중 하나의 숫자를 입력해주세요.");
                     continue;
                 }
                 break; // 유효한 숫자 입력 시 루프 종료
             } catch (NumberFormatException e) {
-                System.out.println("⚠️ 숫자를 입력해주세요!");
+                System.out.println("숫자를 입력해주세요!");
             }
         }
         return inputNumber;
@@ -80,7 +80,7 @@ public class App {
                 inputNumber = Integer.parseInt(input);
                 isValid = false;
             } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력해주세요!!");
+                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요!!");
             }
         }
         return inputNumber;
@@ -92,7 +92,7 @@ public class App {
         String operatorInput = sc.nextLine();
 
         while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
-            System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
+            System.out.println("잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요!!");
             System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
             operatorInput = sc.next();
         }
