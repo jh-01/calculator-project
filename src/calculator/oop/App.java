@@ -90,7 +90,7 @@ public class App {
         while(true){
             System.out.print(message);
             String operatorInput = sc.nextLine().trim();
-            if(operatorInput.length() == 1 && "+-%/".contains(operatorInput)) return operatorInput.charAt(0);
+            if(operatorInput.length() == 1 && "+-*/".contains(operatorInput)) return operatorInput.charAt(0);
             else System.out.println("잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요!!");
         }
     }

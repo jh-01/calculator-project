@@ -36,7 +36,7 @@ public class ArithmeticCalculator<T extends Number> implements Calculator<T> {
     public List<CalculateResult<T>> getBiggerCase(T num){
         List<CalculateResult<T>> biggerCaseList = calculateResultList
                 .stream()
-                .filter(result -> toDouble((T) result.getResult()) > toDouble(num))
+                .filter(result -> result.getResult() > toDouble(num))
                 .collect(Collectors.toCollection(ArrayList::new));
         return biggerCaseList;
     }
