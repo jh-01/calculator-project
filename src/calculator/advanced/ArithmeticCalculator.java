@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ArithmeticCalculator<T extends Number> {
-    private final List<CalculateResult> calculateResultList = new ArrayList<>();
+public class ArithmeticCalculator<T extends Number> implements Calculator<T> {
+    private final List<CalculateResult<T>> calculateResultList = new ArrayList<>();
 
     public double doCalculate(T firstNumber, T secondNumber, OperatorType operator){
         double num1 = toDouble(firstNumber);
@@ -17,7 +17,7 @@ public class ArithmeticCalculator<T extends Number> {
         return num.doubleValue();
     }
 
-    public void saveCalculateResult(CalculateResult calculateResult){
+    public void saveCalculateResult(CalculateResult<T> calculateResult){
         calculateResultList.add(calculateResult);
     }
 
@@ -25,7 +25,7 @@ public class ArithmeticCalculator<T extends Number> {
         calculateResultList.remove(0);
     }
 
-    public List<CalculateResult> getCalculateResultList(){
+    public List<CalculateResult<T>> getCalculateResultList(){
         return calculateResultList;
     }
 
@@ -33,8 +33,8 @@ public class ArithmeticCalculator<T extends Number> {
         calculateResultList.clear();
     }
 
-    public List<CalculateResult> getBiggerCase(T num){
-        List<CalculateResult> biggerCaseList = calculateResultList
+    public List<CalculateResult<T>> getBiggerCase(T num){
+        List<CalculateResult<T>> biggerCaseList = calculateResultList
                 .stream()
                 .filter(result -> toDouble((T) result.getResult()) > toDouble(num))
                 .collect(Collectors.toCollection(ArrayList::new));
