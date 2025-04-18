@@ -1,6 +1,7 @@
 package calculator.oop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator {
     private final ArrayList<CalculateResult> calculateResultList = new ArrayList<>();
@@ -31,10 +32,15 @@ public class Calculator {
     }
 
     public void removeFirstCalculateResult(){
-        calculateResultList.remove(0);
+        if(!calculateResultList.isEmpty()){
+            calculateResultList.remove(0);
+            System.out.println("첫번째 기록 삭제 완료!");
+        } else {
+            System.out.println("삭제할 기록이 없습니다!");
+        }
     }
 
-    public ArrayList<CalculateResult> getCalculateResultList(){
+    public List<CalculateResult> getCalculateResultList(){
         return calculateResultList;
     }
 }

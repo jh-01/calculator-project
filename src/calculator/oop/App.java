@@ -1,6 +1,6 @@
 package calculator.oop;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -38,12 +38,12 @@ public class App {
             try {
                 inputNumber = Integer.parseInt(input);
                 if (inputNumber < 1 || inputNumber > 3) {
-                    System.out.println("⚠️ 1, 2, 3 중 하나의 숫자를 입력해주세요.");
+                    System.out.println("1, 2, 3 중 하나의 숫자를 입력해주세요.");
                     continue;
                 }
                 break; // 유효한 숫자 입력 시 루프 종료
             } catch (NumberFormatException e) {
-                System.out.println("⚠️ 숫자를 입력해주세요!");
+                System.out.println("숫자를 입력해주세요!");
             }
         }
         return inputNumber;
@@ -64,7 +64,7 @@ public class App {
             CalculateResult calculateResult = new CalculateResult(firstNumber, secondNumber, operator, result);
             calculator.saveCalculateResult(calculateResult);
         } catch (Exception e) {
-            System.out.println("오류 발생: " + e.getMessage());
+            System.out.printf("[오류] %d %c %d 계산 중 오류: %s\n", firstNumber, operator, secondNumber, e.getMessage());
         }
     }
 
@@ -80,28 +80,23 @@ public class App {
                 inputNumber = Integer.parseInt(input);
                 isValid = false;
             } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력해주세요!!");
+                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요!!");
             }
         }
         return inputNumber;
     }
 
     public static char readOperator(Scanner sc, String message){
-        char operator;
-        System.out.print(message);
-        String operatorInput = sc.nextLine();
-
-        while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
-            System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
-            System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
-            operatorInput = sc.next();
+        while(true){
+            System.out.print(message);
+            String operatorInput = sc.nextLine().trim();
+            if(operatorInput.length() == 1 && "+-%/".contains(operatorInput)) return operatorInput.charAt(0);
+            else System.out.println("잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요!!");
         }
-        operator = operatorInput.charAt(0);
-        return operator;
     }
 
     public static void printResultList(Calculator calculator){
-        ArrayList<CalculateResult> resultList = calculator.getCalculateResultList();
+        List<CalculateResult> resultList = calculator.getCalculateResultList();
         for(CalculateResult result : resultList){
             System.out.println(result.toString());
         }

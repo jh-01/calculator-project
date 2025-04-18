@@ -15,12 +15,12 @@ public class App {
             secondNumber = readNumber(sc, "두 번째 숫자를 입력하세요: ");
             operator = readOperator(sc, "사칙연산 기호(+, -, *, /)를 입력하세요: ");
             try {
-                result = doCalculate(firstNumber, secondNumber, operator);
+                result = calculate(firstNumber, secondNumber, operator);
                 System.out.printf("[결과] %d %c %d = %d\n", firstNumber, operator, secondNumber, result);
             } catch (Exception e) {
-                System.out.println("오류 발생: " + e.getMessage());
+                System.out.printf("[오류] %d %c %d 계산 중 오류: %s\n", firstNumber, operator, secondNumber, e.getMessage());
             }
-        } while (!askContinue(sc));
+        } while (!shouldExit(sc));
         sc.close();
     }
     public static int readNumber(Scanner sc, String message){
@@ -44,18 +44,18 @@ public class App {
     public static char readOperator(Scanner sc, String message){
         char operator;
         System.out.print(message);
-        String operatorInput = sc.nextLine();
+        String operatorInput = sc.nextLine().trim();
 
         while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
             System.out.println("⚠️ 잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요.");
             System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
-            operatorInput = sc.next();
+            operatorInput = sc.nextLine().trim();
         }
         operator = operatorInput.charAt(0);
         return operator;
     }
 
-    public static int doCalculate(int firstNumber, int secondNumber, char operator){
+    public static int calculate(int firstNumber, int secondNumber, char operator){
         int result = 0;
 
         switch (operator) {
@@ -76,7 +76,7 @@ public class App {
         return result;
     }
 
-    public static boolean askContinue(Scanner sc){
+    public static boolean shouldExit(Scanner sc){
         System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
         String input = sc.nextLine();
         return input.equals("exit");
