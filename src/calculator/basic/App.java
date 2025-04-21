@@ -13,7 +13,7 @@ public class App {
         do {
             firstNumber = readNumber(sc, "첫 번째 숫자를 입력하세요: ");
             secondNumber = readNumber(sc, "두 번째 숫자를 입력하세요: ");
-            operator = readOperator(sc, "사칙연산 기호(+, -, *, /)를 입력하세요: ");
+            operator = readOperator(sc);
             try {
                 result = calculate(firstNumber, secondNumber, operator);
                 System.out.printf("[결과] %d %c %d = %d\n", firstNumber, operator, secondNumber, result);
@@ -23,7 +23,7 @@ public class App {
         } while (!shouldExit(sc));
         sc.close();
     }
-    public static int readNumber(Scanner sc, String message){
+    private static int readNumber(Scanner sc, String message){
         int inputNumber = -1;
         boolean isValid = true;
 
@@ -41,9 +41,9 @@ public class App {
         return inputNumber;
     }
 
-    public static char readOperator(Scanner sc, String message){
+    private static char readOperator(Scanner sc){
         char operator;
-        System.out.print(message);
+        System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
         String operatorInput = sc.nextLine().trim();
 
         while (!(operatorInput.equals("+") || operatorInput.equals("-") || operatorInput.equals("*") || operatorInput.equals("/"))) {
@@ -55,7 +55,7 @@ public class App {
         return operator;
     }
 
-    public static int calculate(int firstNumber, int secondNumber, char operator){
+    private static int calculate(int firstNumber, int secondNumber, char operator){
         int result = 0;
 
         switch (operator) {
@@ -76,7 +76,7 @@ public class App {
         return result;
     }
 
-    public static boolean shouldExit(Scanner sc){
+    private static boolean shouldExit(Scanner sc){
         System.out.print("더 계산하시겠습니까? (exit 입력 시 종료) : ");
         String input = sc.nextLine();
         return input.equals("exit");

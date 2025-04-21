@@ -13,12 +13,15 @@ public class App {
             if (menu == -1) break;
             else if(menu == 1) callCalculator(sc, calculator);
             else if(menu == 2) printResultList(calculator);
-            else if(menu == 3) calculator.removeFirstCalculateResult();
+            else if(menu == 3) {
+                String resultString = calculator.removeFirstCalculateResult();
+                System.out.println(resultString);
+            }
         }
         sc.close();
     }
 
-    public static int printMenu(Scanner sc){
+    private static int printMenu(Scanner sc){
         int inputNumber;
 
         System.out.println("**************************************************************************");
@@ -49,7 +52,7 @@ public class App {
         return inputNumber;
     }
 
-    public static void callCalculator(Scanner sc, Calculator calculator){
+    private static void callCalculator(Scanner sc, Calculator calculator){
         int firstNumber;
         int secondNumber;
         int result;
@@ -57,7 +60,7 @@ public class App {
 
         firstNumber = readNumber(sc, "첫 번째 숫자를 입력하세요: ");
         secondNumber = readNumber(sc, "두 번째 숫자를 입력하세요: ");
-        operator = readOperator(sc, "사칙연산 기호(+, -, *, /)를 입력하세요: ");
+        operator = readOperator(sc);
         try {
             result = calculator.doCalculate(firstNumber, secondNumber, operator);
             System.out.printf("[결과] %d %c %d = %d\n", firstNumber, operator, secondNumber, result);
@@ -68,7 +71,7 @@ public class App {
         }
     }
 
-    public static int readNumber(Scanner sc, String message){
+    private static int readNumber(Scanner sc, String message){
         int inputNumber = -1;
         boolean isValid = true;
 
@@ -86,16 +89,16 @@ public class App {
         return inputNumber;
     }
 
-    public static char readOperator(Scanner sc, String message){
+    private static char readOperator(Scanner sc){
         while(true){
-            System.out.print(message);
+            System.out.print("사칙연산 기호(+, -, *, /)를 입력하세요: ");
             String operatorInput = sc.nextLine().trim();
             if(operatorInput.length() == 1 && "+-*/".contains(operatorInput)) return operatorInput.charAt(0);
             else System.out.println("잘못된 입력입니다. 사칙연산 기호(+, -, *, /)만 입력해주세요!!");
         }
     }
 
-    public static void printResultList(Calculator calculator){
+    private static void printResultList(Calculator calculator){
         List<CalculateResult> resultList = calculator.getCalculateResultList();
         for(CalculateResult result : resultList){
             System.out.println(result.toString());

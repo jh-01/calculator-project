@@ -20,7 +20,7 @@ public class CalculatorUI<T extends Number> {
         sc.close();
     }
 
-    public int printMenu(){
+    private int printMenu(){
         int inputNumber;
 
         System.out.println("**************************************************************************");
@@ -54,7 +54,7 @@ public class CalculatorUI<T extends Number> {
         return inputNumber;
     }
 
-    public void callCalculator(){
+    private void callCalculator(){
         OperatorType operator;
         T firstNumber = (T) readNumber("첫 번째 숫자를 입력하세요: ");
         T secondNumber = (T) readNumber("두 번째 숫자를 입력하세요: ");
@@ -67,7 +67,7 @@ public class CalculatorUI<T extends Number> {
         }
     }
 
-    public Number readNumber(String message){
+    private Number readNumber(String message){
         while (true) {
             System.out.print(message);
             String input = sc.nextLine();
@@ -81,11 +81,11 @@ public class CalculatorUI<T extends Number> {
         }
     }
 
-    public boolean isInteger(String str){
+    private boolean isInteger(String str){
         return !str.contains(".");
     }
 
-    public OperatorType readOperator(String message){
+    private OperatorType readOperator(String message){
         OperatorType operatorType;
 
         while(true){
@@ -100,12 +100,12 @@ public class CalculatorUI<T extends Number> {
         return operatorType;
     }
 
-    public void printAllCalculateResult(){
+    private void printAllCalculateResult(){
         List<CalculateResult<T>> calculateResultList = calculatorService.getResults();
         printResultList(calculateResultList);
     }
 
-    public void printResultList(List<CalculateResult<T>> calculateResultList){
+    private void printResultList(List<CalculateResult<T>> calculateResultList){
         if(calculateResultList.isEmpty()) System.out.println("연산 결과가 비어있습니다!");
         else {
             System.out.println("[연산 결과 목록]");
@@ -113,7 +113,7 @@ public class CalculatorUI<T extends Number> {
         }
     }
 
-    public void getResultsGreaterThan(){
+    private void getResultsGreaterThan(){
         T num = (T) readNumber("기준이 될 숫자를 입력하세요 : ");
         List<CalculateResult<T>> calculateResultList = calculatorService.getResultsGreaterThan(num);
         printResultList(calculateResultList);

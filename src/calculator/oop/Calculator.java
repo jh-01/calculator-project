@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
-    private final ArrayList<CalculateResult> calculateResultList = new ArrayList<>();
+    private final List<CalculateResult> calculateResultList = new ArrayList<>();
 
     public int doCalculate(int firstNumber, int secondNumber, char operator){
         int result = 0;
@@ -31,12 +31,12 @@ public class Calculator {
         calculateResultList.add(calculateResult);
     }
 
-    public void removeFirstCalculateResult(){
+    public String removeFirstCalculateResult(){
         if(!calculateResultList.isEmpty()){
             calculateResultList.remove(0);
-            System.out.println("첫번째 기록 삭제 완료!");
+            return "첫번째 기록 삭제 완료!";
         } else {
-            System.out.println("삭제할 기록이 없습니다!");
+            return "삭제할 기록이 없습니다!";
         }
     }
 

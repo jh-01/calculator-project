@@ -26,7 +26,7 @@ public class ArithmeticCalculator<T extends Number> implements Calculator<T> {
     }
 
     public List<CalculateResult<T>> getCalculateResultList(){
-        return calculateResultList;
+        return List.copyOf(calculateResultList);
     }
 
     public void clearCalculateResultList(){
@@ -34,10 +34,9 @@ public class ArithmeticCalculator<T extends Number> implements Calculator<T> {
     }
 
     public List<CalculateResult<T>> getBiggerCase(T num){
-        List<CalculateResult<T>> biggerCaseList = calculateResultList
+        return calculateResultList
                 .stream()
                 .filter(result -> result.getResult() > toDouble(num))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return biggerCaseList;
     }
 }
