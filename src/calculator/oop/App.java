@@ -44,7 +44,7 @@ public class App {
                     System.out.println("1, 2, 3 중 하나의 숫자를 입력해주세요.");
                     continue;
                 }
-                break; // 유효한 숫자 입력 시 루프 종료
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력해주세요!");
             }
@@ -72,21 +72,16 @@ public class App {
     }
 
     private static int readNumber(Scanner sc, String message){
-        int inputNumber = -1;
-        boolean isValid = true;
-
-        while (isValid) {
+        while (true) {
             System.out.print(message);
             String input = sc.nextLine();
 
             try {
-                inputNumber = Integer.parseInt(input);
-                isValid = false;
+                return Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요!!");
+                System.out.println("숫자를 입력해주세요!!");
             }
         }
-        return inputNumber;
     }
 
     private static char readOperator(Scanner sc){
