@@ -52,7 +52,8 @@ calculator/
 
 ---
 
-### 주요 클래스 (advanced 패키지 하위)
+### 📁주요 클래스 (advanced 패키지 하위)
+![Main](https://github.com/user-attachments/assets/d468ffc0-2aad-4d94-9999-f72726e7c672)
 
 | 클래스 | 역할 |
 |--------|------|
