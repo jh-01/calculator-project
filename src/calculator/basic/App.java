@@ -23,6 +23,7 @@ public class App {
         } while (!shouldExit(sc));
         sc.close();
     }
+
     private static int readNumber(Scanner sc, String message){
         int inputNumber = -1;
         boolean isValid = true;
