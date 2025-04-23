@@ -3,7 +3,7 @@ package calculator.advanced;
 import java.util.List;
 
 public class CalculatorService<T extends Number> {
-    private final ArithmeticCalculator<T> arithmeticCalculator = new ArithmeticCalculator();
+    private final ArithmeticCalculator<T> arithmeticCalculator = new ArithmeticCalculator<>();
 
     public CalculateResult<T> calculate(T firstNumber, T secondNumber, OperatorType operator){
         try {
